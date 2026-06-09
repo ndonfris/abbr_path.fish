@@ -1,6 +1,5 @@
 <div align="center">
-
-# `abbr_path.fish`
+<h1><code>abbr_path.fish</code></h1>
 
 [![fish](https://img.shields.io/badge/shell-fish%20%E2%89%A5%203.6.0-4AAE9B?logo=gnometerminal&logoColor=white)](https://fishshell.com/) [![fisher](https://img.shields.io/badge/plugin-fisher-blue)](https://github.com/jorgebucaran/fisher) [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE.md)
 
