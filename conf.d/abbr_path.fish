@@ -89,9 +89,11 @@ function abbr_path -d 'creates an abbr named $argv[1], that allows path $argv[2]
         echo "EXAMPLE:"
         echo "   • Create the abbreviation 'f_' that expands to '~/.config/fish/':"
         echo "     ❯ abbr_path f_ '~/.config/fish/' --add-cd-abbr"
+        echo ""
         echo "   • Now, typing 'f_' anywhere will expand to '~/.config/fish/'."
         echo "     ❯ f_<TAB> "
         echo "     ❯ ~/.config/fish/<CURSOR> "
+        echo ""
         echo "    • Similiarly, typing 'cdf_' will expand to 'cd ~/.config/fish/'"
         echo "     ❯ cdf_<TAB>"
         echo "     ❯ cd ~/.config/fish/<CURSOR>"
@@ -127,12 +129,20 @@ function abbr_path -d 'creates an abbr named $argv[1], that allows path $argv[2]
         echo "     ❯ abbr_path D_ '~/Downloads/' --add-cd-abbr"
         echo "     ❯ abbr_path P_ '~/Pictures/' --add-cd-abbr"
         echo "     ❯ abbr_path V_ '~/Videos/' --add-cd-abbr"
+        echo ""
+        echo "HELPFUL KEYBINDING:"
+        echo "     ❯ bind / expand-abbr or self-insert"
         echo ""  
         echo "SEE ALSO:"
         echo "   • https://github.com/ndonfris/abbr_path.fish"
         echo "   • https://fishshell.com/docs/current/cmds/abbr.html"
         return 0
     end
+
+    # add '/' if $path doesn't end with it
+    test -d $path && not string match -rq -- '^.*/$' "$path"
+    and set path "$path/"
+
     set -ql _flag_tilde && string match -rq "^$HOME" "$path" 
     and set path (string replace -r -- "^$HOME" '~' $path)
 
@@ -140,8 +150,10 @@ function abbr_path -d 'creates an abbr named $argv[1], that allows path $argv[2]
     abbr -a $name --set-cursor --position=anywhere -- $path%
 
     if set -ql _flag_add_cd_abbr
+        # trim right trailing '_' if name ends with it
         string match -rq '^(.*)\_$' "$name"
         and set -l name (string trim --right --chars='_' "$name")
+
         abbr -a cd$name --set-cursor -- cd $path%
     end
 end
