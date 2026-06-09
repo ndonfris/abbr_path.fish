@@ -245,4 +245,4 @@ Contributions are welcome! Please [open an issue](https://github.com/ndonfris/ab
 
 ## License
 
-[MIT License](LICENSE.md) © 2026 [Nick Donfris](https://github.com/ndonfris)
+[MIT](LICENSE.md)
