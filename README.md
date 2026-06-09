@@ -1,11 +1,12 @@
-<div align="center">
-<h1><code>abbr_path.fish</code></h1>
+<div align="center"><h1><a alt-text="abbr_path.fish" href="#abbr_path.fish"><code>abbr_path.fish</code></a>
 
 [![fish](https://img.shields.io/badge/shell-fish%20%E2%89%A5%203.6.0-4AAE9B?logo=gnometerminal&logoColor=white)](https://fishshell.com/) [![fisher](https://img.shields.io/badge/plugin-fisher-blue)](https://github.com/jorgebucaran/fisher) [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE.md)
 
-**Turn your most-used paths into abbreviations that expand _anywhere_ on the command line.**
+</h1>
 
-![abbr_path.fish demo](assets/demo.gif)
+![abbr_path.fish demo](assets/demo4-2.gif)
+<b><sub><sup>Turn your most-used paths into abbreviations that expand _anywhere_ on the command line.</sup></sub></b>
+<!-- <sub><sup><sub><sup><sub><sup><sub><sup><sub><sup><sub><sup><sub><sup><sub><sup>Turn your most-used paths into abbreviations that expand _anywhere_ on the command line.</sup></sub></sup></sub></sup></sub></sup></sub></sup></sub></sup></sub></sup></sub></sup></sub> -->
 
 </div>
 
