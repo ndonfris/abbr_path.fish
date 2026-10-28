@@ -1,6 +1,6 @@
 <div align="center"><h1><a alt-text="abbr_path.fish" href="#abbr_path.fish"><code>abbr_path.fish</code></a>
 
-[![fish](https://img.shields.io/badge/shell-fish%20%E2%89%A5%203.6.0-4AAE9B?logo=gnometerminal&logoColor=white)](https://fishshell.com/) [![fisher](https://img.shields.io/badge/plugin-fisher-blue)](https://github.com/jorgebucaran/fisher) [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE.md)
+[![fish](https://img.shields.io/badge/shell-fish%20%E2%89%A5%204.1.0-4AAE9B?logo=gnometerminal&logoColor=white)](https://fishshell.com/) [![fisher](https://img.shields.io/badge/plugin-fisher-blue)](https://github.com/jorgebucaran/fisher) [![license](https://img.shields.io/badge/license-MIT-green)](LICENSE.md)
 
 </h1>
 
@@ -48,7 +48,7 @@ Because it builds on `abbr --position=anywhere`, the expansion is **inline, visi
 
 #### Requirements
 
-- [fish](https://fishshell.com/) `≥ 3.6.0`
+- [fish](https://fishshell.com/) `≥ 4.1.0`
 - [fisher](https://github.com/jorgebucaran/fisher)
 
 ```fish
@@ -59,7 +59,7 @@ fisher install ndonfris/abbr_path.fish
 <summary>Manual installation (without fisher)</summary>
 
 ```fish
-curl -L https://raw.githubusercontent.com/ndonfris/abbr_path.fish/main/conf.d/abbr_path.fish \
+curl -L https://raw.githubusercontent.com/ndonfris/abbr_path.fish/master/conf.d/abbr_path.fish \
   -o ~/.config/fish/conf.d/abbr_path.fish
 ```
 
