@@ -191,8 +191,11 @@ function abbr_path -d 'creates an abbr named $argv[1], that allows path $argv[2]
     end
 
 
+    # expand a leading '~' (e.g., quoted '~/.config/') so `test -d` can see the folder
+    set -l expanded_path (string replace -r -- '^~(?=/|$)' "$HOME" "$path")
+
     # add '/' if $path doesn't end with it
-    if test -d $path && not string match -rq -- '^.*/$' "$path"
+    if test -d "$expanded_path" && not string match -rq -- '^.*/$' "$path"
         set -ql _flag_warn_missing_slash
         and echo "Warning: `abbr_path $name $path` missing trailing '/'" >&2
 
@@ -205,47 +208,30 @@ function abbr_path -d 'creates an abbr named $argv[1], that allows path $argv[2]
     # note: most folder expansions should end with trailing '/' character
     abbr -a $name --set-cursor --position=anywhere -- $path%
 
-    if set -ql _flag_add_cd_abbr
-        # trim right trailing '_' if name ends with it
-        string match -rq '^(.*)\_$' "$name"
-        and set -l name (string trim --right --chars='_' "$name")
+    # strip one trailing '_' for the companion abbrs (e.g., `f_` -> `cdf`)
+    set -l short_name (string replace -r -- '_$' '' $name)
 
-        set fixed_names
-        for fixed_name in $name $_flag_add_cd_abbr
-            if not contains $fixed_name $fixed_names && test -n "$fixed_name"
-                set -a fixed_names $fixed_name
-            end
-        end
+    set -ql _flag_add_cd_abbr
+    and __abbr_path_add_prefixed cd $path $short_name $_flag_add_cd_abbr
 
-        for fixed_name in $fixed_names
-            abbr -a cd$fixed_name --set-cursor -- cd $path%
-        end
-    end
+    # first non-empty value of: $ABBR_PATH_EDITOR, $EDITOR, nvim
+    set -l editor (string match -r -- '.+' $ABBR_PATH_EDITOR $EDITOR nvim)[1]
 
-    if set -ql _flag_add_editor_abbr
-        # trim right trailing '_' if name ends with it
-        string match -rq '^(.*)\_$' "$name"
-        and set -l name (string trim --right --chars='_' "$name")
+    set -ql _flag_add_editor_abbr
+    and __abbr_path_add_prefixed $editor $path $short_name $_flag_add_editor_abbr
 
-        set -l fixed_names
-        for fixed_name in $name $_flag_add_editor_abbr
-            if not contains $fixed_name $fixed_names && test -n "$fixed_name"
-                set -a fixed_names $fixed_name
-            end
-        end
+    return 0
+end
 
-        set -q ABBR_PATH_EDITOR && not test -n "$ABBR_PATH_EDITOR" && set -f EDITOR $ABBR_PATH_EDITOR
-        if not set -q EDITOR || test -n "$EDITOR"
-            set -f EDITOR nvim
-        end
-
-        for fixed_name in $fixed_names
-            abbr -a $EDITOR$fixed_name --set-cursor -- $EDITOR $path%
-        end
+# creates an abbr `$prefix$name` that expands to `$prefix $path`, for each name in $argv[3..]
+# (empty names are skipped, e.g., from a bare `--add-cd-abbr`)
+function __abbr_path_add_prefixed -a prefix path -d "helper to `abbr_path` plugin `ndonfris/abbr_path.fish`"
+    for name in $argv[3..]
+        test -n "$name" && abbr -a $prefix$name --set-cursor -- $prefix $path%
     end
 end
 
 function _abbr_path_uninstall --on-event abbr_path_uninstall
     set -eU ABBR_PATH_EDITOR
-    set -eU ABBR_DEFAULT_OPTS
+    set -eU ABBR_PATH_DEFAULT_OPTS
 end
