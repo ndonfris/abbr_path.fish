@@ -169,13 +169,13 @@ abbr_path f_ '~/.config/fish/' --add-cd-abbr
 
 You now have **two** abbreviations from that one line:
 
-| Type   | Expands to             | Position   | Use it for                          |
-| ------ | ---------------------- | ---------- | ----------------------------------- |
-| `f_`   | `~/.config/fish/`      | *anywhere* | the path as an argument to any cmd  |
-| `cdf`  | `cd ~/.config/fish/`   | *command*  | hopping into the directory          |
+| Type    | Expands to             | Position   | Use it for                          |
+| ------- | ---------------------- | ---------- | ----------------------------------- |
+| `f_`    | `~/.config/fish/`      | *anywhere* | the path as an argument to any cmd  |
+| `cdf_`  | `cd ~/.config/fish/`   | *command*  | hopping into the directory          |
 
 ```console
-❯ cdf⇥
+❯ cdf_⇥
 ❯ cd ~/.config/fish/
 ```
 
