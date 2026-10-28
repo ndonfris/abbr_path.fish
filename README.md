@@ -15,7 +15,7 @@
 
 `abbr_path.fish` is a tiny [fish shell](https://fishshell.com/) utility that wraps fish's native [`abbr`](https://fishshell.com/docs/current/cmds/abbr.html) to create **path abbreviations**.
 
-Define a short alias once, and from then on it expands to a real filesystem path **anywhere** in a command, not just as a `cd` target.
+Define a short alias once, and from then on it expands to a real filesystem path **anywhere** in a command.
 
 ```fish
 abbr_path f_cf ~/.config/fish/config.fish
