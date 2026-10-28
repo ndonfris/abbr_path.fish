@@ -6,7 +6,6 @@
 
 ![abbr_path.fish demo](assets/demo4-2.gif)
 <b><sub><sup>Turn your most-used paths into abbreviations that expand _anywhere_ on the command line.</sup></sub></b>
-<!-- <sub><sup><sub><sup><sub><sup><sub><sup><sub><sup><sub><sup><sub><sup><sub><sup>Turn your most-used paths into abbreviations that expand _anywhere_ on the command line.</sup></sub></sup></sub></sup></sub></sup></sub></sup></sub></sup></sub></sup></sub></sup></sub> -->
 
 </div>
 
@@ -71,9 +70,9 @@ abbr_path <ABBR_NAME> <PATH>
 ```
 
 | Argument      | Description                                                            |
-| ------------- | --------------------------------------------------------------------- |
-| `<ABBR_NAME>` | The short alias you'll type. A trailing-marker like `_` reads nicely. |
-| `<PATH>`      | The directory or file the alias expands to.                           |
+| ------------- | ---------------------------------------------------------------------- |
+| `<ABBR_NAME>` | The short alias you'll type. A trailing-marker like `_` reads nicely.  |
+| `<PATH>`      | The directory or file the alias expands to.                            |
 
 Run `abbr_path --help` for a built-in cheat sheet of examples.
 
@@ -84,7 +83,7 @@ Run `abbr_path --help` for a built-in cheat sheet of examples.
 <!-- ![Creating an abbreviation](assets/create.gif) -->
 
 ```fish
-abbr_path f_ ~/.config/fish/
+abbr_path f_ '~/.config/fish/'
 # if you want to keep `~/.config/fish/` expansion exactly either 
 #   >_ abbr f_ '~/.config/fish/'
 #   >_ abbr f_ ~/.config/fish/ --tilde
@@ -175,13 +174,20 @@ You now have **two** abbreviations from that one line:
 | `cdf_`  | `cd ~/.config/fish/`   | *command*  | hopping into the directory          |
 
 ```console
-❯ cdf_⇥
+❯ cdf⇥
 ❯ cd ~/.config/fish/
 ```
 
 **Behavior & rules:**
 
-- The cd-abbr is named `cd` + your abbr name with **one trailing `_` stripped**, so `f_` → `cdf`, `c_` → `cdc`, `n_` → `cdn`. (A name without a trailing `_`, e.g. `proj`, becomes `cdproj`.)
+- The cd-abbr is named `cd` + your abbr name with **one trailing `_` stripped** (A name without a trailing `_`, e.g. `proj`, becomes `cdproj`.)
+
+  | Input                                                         | `cd` abbr    | expansion                      |
+  | ------------------------------------------------------------- | ------------ | ------------------------------ |
+  | `abbr_path l_ '~/.local/' --add-cd-path`                      | `cdl`        | `cd ~/.local/`                 |
+  | `abbr_path c_ '~/.config/' --abbr-cd-path`                    | `cdc`        | `cd ~/.config/`                |
+  | `abbr_path c_f '~/.config/fish/' --abbr-cd-path`              | `cdc_f`      | `cd ~/.config/fish/`           |
+
 - The `cd` prefix keeps it namespaced, so it won't collide with your `f_` path abbreviation or with real commands.
 - It expands only in **command position**, so it acts like a normal command and never interferes with `f_` used mid-line.
 - It's only meaningful for **directories**. Pointing it at a file produces a `cd` that errors at
@@ -193,6 +199,12 @@ You now have **two** abbreviations from that one line:
 >
 > ```fish
 > abbr_path f_ /home/you/.config/fish/ --tilde   # stored as ~/.config/fish/
+> ```
+>
+> Or if you don't want to quote `PATH` argument
+>
+> ```fish
+> abbr_path f_f ~/.config/fish/functions/ --tilde
 > ```
 
 ### Making abbreviations permanent
